@@ -61,7 +61,9 @@ python3 main.py
 ```
 
 - SVBRDF format
+
    normal, diffuse, roughness, specular
+   
   (diffuse map is in srgb color space (gamma 2.2), other maps are in linear color space)
   
 
