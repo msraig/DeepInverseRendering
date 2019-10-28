@@ -20,7 +20,7 @@ If you have any questions about our paper, please feel free to contact me (gao-d
 ## Pretrained models
 
 Our pretrained SVBRDF auto-encoder can be downloaded from [here](https://drive.google.com/open?id=17WrAZIkyejwRm5aKBtTvNHYe_3c6S9aE).
-
+Download the pretrained model and extract it into `./model/`.
 
 
 ## Dependencies 
@@ -33,38 +33,39 @@ Our pretrained SVBRDF auto-encoder can be downloaded from [here](https://drive.g
 
 ## Usage
 
-- Eval mode (captured images as input)
-
-```bash
-   python3 main.py 
-      --N $input_numbers            # number of input images
-      --checkpoint $checkpoint      # pretrained model of auto-encoder
-      --dataDir $images_data_dir    # folder contains a set of input images
-      --logDir $log_dir             # output folder
-      --initDir  $init_dir          # folder contains initial SVBRDF maps or initial code 
-      --network $network            # network architecture (default: network_ae_fixBN)
-    
-      --init_method svbrdf          
-      --input_type image 
-      --wlv_type $wlv_dir 
-```
-
 - Test mode (SVBRDF map as input)
+
 ```bash
 python3 main.py 
-   --N $input_numbers 
-   --checkpoint $checkpoint 
-   --dataDir $svbrdf_data_dir 
-   --logDir $log_dir 
-   --initDir  $init_dir 
-   --network $network  
+   --N 20                                       # number of input images
+   --checkpoint ../model/                       # pretrained model of auto-encoder
+   --dataDir ../example_data/example_svbrdf     # folder contains a set of input images
+   --logDir ../log_test_example                 # output folder
+   --initDir  ../example_data/example_init      # folder contains initial SVBRDF maps or initial code 
+   --network network_ae_fixBN                   # network architecture (default: network_ae_fixBN)
    
    --init_method svbrdf 
    --input_type svbrdf 
-   --wlv_type random 
+   --wlv_type load
+   --wlvDir ../example_data/example_wlv
 ```
 
-- Other command arguments:
+
+- Eval mode (captured images as input)
+
+```bash
+   python3 main.py                    
+      --dataDir ../example_data/example_images    # LDR images are given in example_images    
+      --input_type image 
+      ... 
+```
+
+- SVBRDF format
+   normal, diffuse, roughness, specular
+  (diffuse map is in srgb color space (gamma 2.2), other maps are in linear color space)
+  
+
+- Command arguments:
 
 ```
 -- input_type: ['image', 'svbrdf']
@@ -76,7 +77,7 @@ python3 main.py
    
 -- init_method: ['svbrdf', 'code', 'rand']
 
- 'svbrdf': the estimated SVBRDF (using our encoder to embedding it into our latent     space)
+ 'svbrdf': the estimated SVBRDF (using our encoder to embedding it into our latent space)
  
  'code':  the latent code (numpy array)
  
@@ -88,9 +89,9 @@ python3 main.py
    'random': random generate camera position and light position
    
    'load': load camera position and light position from file
+   
 ```
 
-- Example data can be found in `example_data` folder.
 
 ## Citation
 
