@@ -1,0 +1,2 @@
+0000066;leather_tilesXPolishedMarbleFloor_01;defaultX4
+0000080;PolishedMarbleFloor_01Xbrick_uneven_stones;1Xdefault
